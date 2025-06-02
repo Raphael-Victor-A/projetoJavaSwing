@@ -10,22 +10,21 @@ import modelo.listaAdmM;
  * @author jarba e rarpha e vinir
  */
 public class listaUsuarioM extends listaAdmM{
-    private int notaLivro;
+    private int notaFilme;
     private String comentarios;
-    
-    
-    public listaUsuarioM(int notaLivro, String comentarios, String nomeLivro, int anoPublicacao, String autor, String genero, String idioma) {
-        super(nomeLivro, anoPublicacao, autor, genero, idioma);
-        this.notaLivro = notaLivro;
+
+    public listaUsuarioM(int notaFilme, String comentarios, String nomeFilme, int anoPublicacao, String autor, String genero, String idioma, int duracaoMinutos) {
+        super(nomeFilme, anoPublicacao, autor, genero, idioma, duracaoMinutos);
+        this.notaFilme = notaFilme;
         this.comentarios = comentarios;
     }
 
-    public int getNotaLivro() {
-        return notaLivro;
+    public int getNotaFilme() {
+        return notaFilme;
     }
 
-    public void setNotaLivro(int notaLivro) {
-        this.notaLivro = notaLivro;
+    public void setNotaFilme(int notaFilme) {
+        this.notaFilme = notaFilme;
     }
 
     public String getComentarios() {
@@ -36,5 +35,6 @@ public class listaUsuarioM extends listaAdmM{
         this.comentarios = comentarios;
     }
     
-
+    
+    
 }

@@ -9,26 +9,28 @@ package modelo;
  * @author jarbas
  */
 public class listaAdmM {
-    private String nomeLivro;
+    private String nomeFilme;
     private int anoPublicacao;
     private String autor;
     private String genero;
     private String idioma;
+    private int duracaoMinutos;
 
-    public listaAdmM(String nomeLivro, int anoPublicacao, String autor, String genero, String idioma) {
-        this.nomeLivro = nomeLivro;
+    public listaAdmM(String nomeFilme, int anoPublicacao, String autor, String genero, String idioma, int duracaoMinutos) {
+        this.nomeFilme = nomeFilme;
         this.anoPublicacao = anoPublicacao;
         this.autor = autor;
         this.genero = genero;
         this.idioma = idioma;
+        this.duracaoMinutos = duracaoMinutos;
     }
 
-    public String getNomeLivro() {
-        return nomeLivro;
+    public String getNomeFilme() {
+        return nomeFilme;
     }
 
-    public void setNomeLivro(String nomeLivro) {
-        this.nomeLivro = nomeLivro;
+    public void setNomeFilme(String nomeFilme) {
+        this.nomeFilme = nomeFilme;
     }
 
     public int getAnoPublicacao() {
@@ -62,6 +64,16 @@ public class listaAdmM {
     public void setIdioma(String idioma) {
         this.idioma = idioma;
     }
+
+    public int getDuracaoMinutos() {
+        return duracaoMinutos;
+    }
+
+    public void setDuracaoMinutos(int duracaoMinutos) {
+        this.duracaoMinutos = duracaoMinutos;
+    }
+
+    
     
     
 }

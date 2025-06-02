@@ -8,6 +8,7 @@ package modelo;
  *
  * @author jarba
  */
+
 public class usuarioM {
     private String nomeUsuario;
     private int senha;
