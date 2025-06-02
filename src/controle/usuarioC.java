@@ -12,15 +12,15 @@ import modelo.usuarioM;
 public class usuarioC {
     bancoDeDados usuario = new bancoDeDados();
     
-    public void inserirUsuario(){
+    public void inserirUsuario(usuarioM obj){
         try{
             usuario.conexao();
             String sql = "insert into usuarios values ('"+obj.getNomeUsuario()+"',"+obj.getIdadeUsuario()+","
                     +obj.getCodUsuario()+")";
             usuario.getStatement().execute(sql);
             
-        }catch(){
-            
+        }catch(Exception er){
+            er.printStackTrace();
         }
     }
 }
