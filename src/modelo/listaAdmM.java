@@ -8,14 +8,14 @@ package modelo;
  *
  * @author jarbas
  */
-public class listaDesejosM {
+public class listaAdmM {
     private String nomeLivro;
     private int anoPublicacao;
     private String autor;
     private String genero;
     private String idioma;
 
-    public listaDesejosM(String nomeLivro, int anoPublicacao, String autor, String genero, String idioma) {
+    public listaAdmM(String nomeLivro, int anoPublicacao, String autor, String genero, String idioma) {
         this.nomeLivro = nomeLivro;
         this.anoPublicacao = anoPublicacao;
         this.autor = autor;

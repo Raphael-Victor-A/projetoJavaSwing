@@ -10,13 +10,11 @@ package modelo;
  */
 public class usuarioM {
     private String nomeUsuario;
-    private int idadeUsuario;
-    private int codUsuario;
+    private int senha;
 
-    public usuarioM(String nomeUsuario, int idadeUsuario, int codUsuario) {
+    public usuarioM(String nomeUsuario, int senha) {
         this.nomeUsuario = nomeUsuario;
-        this.idadeUsuario = idadeUsuario;
-        this.codUsuario = codUsuario;
+        this.senha = senha;
     }
 
     public String getNomeUsuario() {
@@ -27,22 +25,13 @@ public class usuarioM {
         this.nomeUsuario = nomeUsuario;
     }
 
-    public int getIdadeUsuario() {
-        return idadeUsuario;
+    public int getSenha() {
+        return senha;
     }
 
-    public void setIdadeUsuario(int idadeUsuario) {
-        this.idadeUsuario = idadeUsuario;
+    public void setSenha(int senha) {
+        this.senha = senha;
     }
-
-    public int getCodUsuario() {
-        return codUsuario;
-    }
-
-    public void setCodUsuario(int codUsuario) {
-        this.codUsuario = codUsuario;
-    }
-
     
-    
+  
 }
