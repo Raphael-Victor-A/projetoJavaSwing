@@ -45,7 +45,7 @@ public class listaAdmC {
             bd.conexao();
             String sql = "select * from filmes";
             bd.getStatement().execute(sql);
-
+           
             javax.swing.JOptionPane aviso = new javax.swing.JOptionPane();
             aviso.showMessageDialog(null, "busca realizada");
             bd.desconecta();
