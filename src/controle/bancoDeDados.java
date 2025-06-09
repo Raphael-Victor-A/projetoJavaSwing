@@ -28,7 +28,7 @@ public class bancoDeDados {
        {
         Class.forName("org.postgresql.Driver");
         conn = DriverManager.getConnection(
-               "jdbc:postgresql://localhost:5432/imdb","postgres", "4661");
+               "jdbc:postgresql://localhost:5432/Dac","postgres", "260404");
         System.out.println("Conectado ao PostGreSQL.");        
         }catch(Exception e){
             System.out.println("Falha ao tentar a conexão");

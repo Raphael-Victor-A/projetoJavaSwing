@@ -3,9 +3,12 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package visão;
+import javax.swing.JOptionPane;
 import modelo.sessaoUsuarioM;
 import modelo.usuarioM;
 import controle.usuarioC;
+import visão.TelaUserV;
+import visão.TelaAdmV;
 /**
  *
  * @author rapha
@@ -32,8 +35,8 @@ public class principal extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jPasswordField1 = new javax.swing.JPasswordField();
+        campoUsuario = new javax.swing.JTextField();
+        campoSenha = new javax.swing.JPasswordField();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
 
@@ -45,7 +48,11 @@ public class principal extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel2.setText("SENHA:");
 
-        jPasswordField1.setText("jPasswordField1");
+        campoUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                campoUsuarioActionPerformed(evt);
+            }
+        });
 
         jButton1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jButton1.setText("LOGIN");
@@ -71,8 +78,8 @@ public class principal extends javax.swing.JFrame {
                             .addComponent(jLabel2))
                         .addGap(41, 41, 41)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jTextField1)
-                            .addComponent(jPasswordField1, javax.swing.GroupLayout.DEFAULT_SIZE, 204, Short.MAX_VALUE))
+                            .addComponent(campoUsuario)
+                            .addComponent(campoSenha, javax.swing.GroupLayout.DEFAULT_SIZE, 204, Short.MAX_VALUE))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(23, 23, 23)
@@ -87,11 +94,11 @@ public class principal extends javax.swing.JFrame {
                 .addGap(50, 50, 50)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(campoUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(campoSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(38, 38, 38)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
@@ -131,24 +138,28 @@ public class principal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        String nomeUsuario = jTextField1.getText();
-        String senha = new String(jPasswordField1.getPassword());
+    String usuario = campoUsuario.getText();
+        String senha = new String(campoSenha.getPassword());
 
-        // Verificar credenciais no banco de dados
-        usuarioC usuarioController = new usuarioC();
-        // Implemente um método para verificar login no usuarioC
-        if (usuarioController.verificarLogin(nomeUsuario, senha)) {
-            // Armazenar usuário logado
-            sessaoUsuarioM.getInstance().setUsuarioLogado(new usuarioM(nomeUsuario, senha));
-            javax.swing.JOptionPane aviso = new javax.swing.JOptionPane();
-            aviso.showMessageDialog(null, "foi");
-            // Abrir a tela apropriada (UserFuncV ou admFuncV)
-            // ...
-        } else {
-            javax.swing.JOptionPane aviso = new javax.swing.JOptionPane();
-            aviso.showMessageDialog(null, "Login falhou!");
-        }
+    if (usuario.equals("admin") && senha.equals("12345")) {
+        // Login correto como administrador
+            TelaAdmV telaAdmin = new TelaAdmV();
+            telaAdmin.setVisible(true);
+        this.dispose(); // Fecha a tela de login
+        } else if (!usuario.isEmpty() && !senha.isEmpty()) {
+        // Qualquer outro login (usuário comum)
+            TelaUserV telaUsuario = new TelaUserV(); // Substitua por sua classe correta
+            telaUsuario.setVisible(true);
+            this.dispose(); // Fecha a tela de login
+    } else {
+        // Campos vazios ou inválidos
+        JOptionPane.showMessageDialog(this, "Usuário ou senha incorretos.");
+    }
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void campoUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoUsuarioActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_campoUsuarioActionPerformed
 
     /**
      * @param args the command line arguments
@@ -186,13 +197,13 @@ public class principal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPasswordField campoSenha;
+    private javax.swing.JTextField campoUsuario;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPasswordField jPasswordField1;
-    private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
 }
