@@ -40,6 +40,22 @@ public class listaAdmC {
             er.printStackTrace();
     }
     }
+    public void buscaFilmeAdm(listaAdmM obj){
+        try{
+            bd.conexao();
+            String sql = "select * from filmes";
+            bd.getStatement().execute(sql);
+
+            javax.swing.JOptionPane aviso = new javax.swing.JOptionPane();
+            aviso.showMessageDialog(null, "busca realizada");
+            bd.desconecta();
+        }catch(Exception er){
+            er.printStackTrace();
+    }
+        
+    }
+    
+    
     public void removerFilmeAdm(String nomeFilme){
         try{
             bd.conexao();
