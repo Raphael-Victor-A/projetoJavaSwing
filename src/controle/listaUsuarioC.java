@@ -9,6 +9,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import modelo.listaUsuarioM;
+import modelo.usuarioM;
 
 /**
  *
@@ -19,24 +20,60 @@ public class listaUsuarioC {
     public ResultSet dadosConsulta;
     bancoDeDados bd=new bancoDeDados();
     
-    public void inserirUsuario(listaUsuarioM obj){
-    try{
+    public void inserirFilmeUsuario(listaUsuarioM obj, usuarioM user) {
+    Connection conn = null;
+    PreparedStatement psFilme = null;
+    PreparedStatement psInsert = null;
+    ResultSet rs = null;
+
+    try {
         bd.conexao();
-        String sql = "insert into filmes values('"+obj.getNomeFilme()+"',"+obj.getAnoPublicacao()+",'"+obj.getAutor()+"','"+obj.getGenero()+"',"
-                + "'"+obj.getIdioma()+"',"+obj.getDuracaoMinutos()+")";
-        bd.getStatement().execute(sql);
-        
-        javax.swing.JOptionPane aviso = new javax.swing.JOptionPane();
-        aviso.showMessageDialog(null, "Filme cadastrado");
-        bd.desconecta();
-    }catch(Exception er){
-            er.printStackTrace();
+        conn = bd.getConnection();
+
+        // 1. Verifica se o filme já existe na tabela filmes
+        String sqlCheck = "SELECT idFilme FROM filmes WHERE nomeFilme = ?";
+        psFilme = conn.prepareStatement(sqlCheck);
+        psFilme.setString(1, obj.getNomeFilme());
+        rs = psFilme.executeQuery();
+
+        if (rs.next()) {
+            int idFilme = rs.getInt("idFilme");
+
+            // 2. Insere na tabela filmesAvaliados (relacionando com o filme existente)
+            String sqlInsert = "INSERT INTO filmesAvaliados (idFilme, nomeUsuario, nota, comentarios) VALUES (?, ?, ?, ?)";
+            psInsert = conn.prepareStatement(sqlInsert);
+            psInsert.setInt(1, idFilme);
+            psInsert.setString(2, user.getNomeUsuario());  
+            psInsert.setInt(3, obj.getNotaFilme());
+            psInsert.setString(4, obj.getComentarios());
+
+            psInsert.executeUpdate();
+
+            javax.swing.JOptionPane aviso = new javax.swing.JOptionPane();
+            aviso.showMessageDialog(null, "Filme avaliado com sucesso!");
+
+        } else {
+            javax.swing.JOptionPane aviso = new javax.swing.JOptionPane();
+            aviso.showMessageDialog(null, "Filme não encontrado no catálogo!");
+        }
+
+    } catch (SQLException e) {
+        e.printStackTrace();
+    } finally {
+        try {
+            if (rs != null) rs.close();
+            if (psFilme != null) psFilme.close();
+            if (psInsert != null) psInsert.close();
+            bd.desconecta();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
-    }
-    public void removerUsuario(String nomeFilme){
+}
+    public void removerFilmeUsuario(String nomeFilme, String nomeUsuario){
         try{
             bd.conexao();
-            String sql="delete from filmes where nomeFilme='"+nomeFilme+"'";
+            String sql="delete from filmesAvaliados where nomeFilme='"+nomeFilme+"' and '"+nomeUsuario+"'";
             bd.getStatement().execute(sql);
             
             javax.swing.JOptionPane aviso = new javax.swing.JOptionPane();
@@ -47,7 +84,7 @@ public class listaUsuarioC {
             er.printStackTrace();
         }
     }
-    public boolean atualizarUsuario(listaUsuarioM usuario) {
+    public boolean atualizarUsuario(listaUsuarioM usuario, usuarioM user) {
     Connection conn = null;
     PreparedStatement ps = null;
     boolean sucesso = false;
@@ -58,16 +95,14 @@ public class listaUsuarioC {
         conn = bd.getConnection(); 
 
        
-        String sql = "UPDATE filmes SET anoPublicacao=?, autor=?, genero=?, idioma=?,duracaoMinutos=? WHERE nomeFilme = ?";
+        String sql = "UPDATE filmesAvaliados SET notaFilme=?,comentarios=? WHERE nomeFilme = ? and nomeUsuario = ?";
         ps = conn.prepareStatement(sql);
 
-        
-        ps.setInt(1, usuario.getAnoPublicacao());
-        ps.setString(2, usuario.getAutor());
-        ps.setString(3, usuario.getGenero());
-        ps.setString(4, usuario.getIdioma());
-        ps.setInt(5, usuario.getDuracaoMinutos());
-        ps.setString(6, usuario.getNomeFilme());
+        ps.setInt(1, usuario.getNotaFilme());
+        ps.setString(2, usuario.getComentarios());
+        ps.setString(3, usuario.getNomeFilme());
+        ps.setString(4, user.getNomeUsuario());
+
        
         int linhasAfetadas = ps.executeUpdate(); 
 

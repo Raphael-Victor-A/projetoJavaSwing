@@ -26,7 +26,7 @@ public class listaAdmC {
     public ResultSet dadosConsulta;
     bancoDeDados bd=new bancoDeDados();
     
-    public void inserirUsuario(listaAdmM obj){
+    public void inserirFilmeAdm(listaAdmM obj){
     try{
         bd.conexao();
         String sql = "insert into filmes values('"+obj.getNomeFilme()+"',"+obj.getAnoPublicacao()+",'"+obj.getAutor()+"','"+obj.getGenero()+"',"
@@ -40,7 +40,7 @@ public class listaAdmC {
             er.printStackTrace();
     }
     }
-    public void removerUsuario(String nomeFilme){
+    public void removerFilmeAdm(String nomeFilme){
         try{
             bd.conexao();
             String sql="delete from filmes where nomeFilme='"+nomeFilme+"'";
