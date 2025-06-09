@@ -29,8 +29,7 @@ public class listaAdmC {
     public void inserirFilmeAdm(listaAdmM obj){
     try{
         bd.conexao();
-        String sql = "insert into filmes values('"+obj.getNomeFilme()+"',"+obj.getAnoPublicacao()+",'"+obj.getAutor()+"','"+obj.getGenero()+"',"
-                + "'"+obj.getIdioma()+"',"+obj.getDuracaoMinutos()+")";
+            String sql = "insert into filmes (nomeFilme,anoPublicacao,autor,genero,idioma,duracaoMinutos)values('"+obj.getNomeFilme()+"',"+obj.getAnoPublicacao()+",'"+obj.getAutor()+"','"+obj.getGenero()+"','"+obj.getIdioma()+"',"+obj.getDuracaoMinutos()+");";
         bd.getStatement().execute(sql);
         
         javax.swing.JOptionPane aviso = new javax.swing.JOptionPane();
