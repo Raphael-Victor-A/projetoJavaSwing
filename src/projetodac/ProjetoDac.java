@@ -11,8 +11,7 @@ import visão.principal;
  */
 public class ProjetoDac {
     
-    private static String token = "ea051037";
-    private static String url = "http://www.omdbapi.com/?i=tt3896198&apikey=ea051037";
+
     /**
      * @param args the command line arguments
      */

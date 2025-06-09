@@ -139,7 +139,7 @@ public class principal extends javax.swing.JFrame {
         // Implemente um método para verificar login no usuarioC
         if (usuarioController.verificarLogin(nomeUsuario, senha)) {
             // Armazenar usuário logado
-            sessaoUsuarioM.getInstance().setUsuarioLogado(new usuarioM(nomeUsuario, Integer.parseInt(senha)));
+            sessaoUsuarioM.getInstance().setUsuarioLogado(new usuarioM(nomeUsuario, senha));
             javax.swing.JOptionPane aviso = new javax.swing.JOptionPane();
             aviso.showMessageDialog(null, "foi");
             // Abrir a tela apropriada (UserFuncV ou admFuncV)

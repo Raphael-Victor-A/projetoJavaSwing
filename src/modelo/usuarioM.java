@@ -11,9 +11,9 @@ package modelo;
 
 public class usuarioM {
     private String nomeUsuario;
-    private int senha;
-
-    public usuarioM(String nomeUsuario, int senha) {
+    private String senha;
+    
+    public usuarioM(String nomeUsuario, String senha) {
         this.nomeUsuario = nomeUsuario;
         this.senha = senha;
     }
@@ -26,13 +26,14 @@ public class usuarioM {
         this.nomeUsuario = nomeUsuario;
     }
 
-    public int getSenha() {
+    public String getSenha() {
         return senha;
     }
 
-    public void setSenha(int senha) {
+    public void setSenha(String senha) {
         this.senha = senha;
     }
+    
     
   
 }
