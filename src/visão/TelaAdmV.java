@@ -649,6 +649,11 @@ public class TelaAdmV extends javax.swing.JFrame {
         jLabel23.setText("ID Filme:");
 
         jBRemoverFilme.setText("Remover");
+        jBRemoverFilme.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBRemoverFilme(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
         jPanel8.setLayout(jPanel8Layout);
@@ -842,10 +847,18 @@ public class TelaAdmV extends javax.swing.JFrame {
 
     private void MostrarTabelas(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MostrarTabelas
         // TODO add your handling code here:
-        TabelaAdmV tabalaAdm = new TabelaAdmV();
-        tabalaAdm.setVisible(true);
+        TabelaAdmV tabelaAdm = new TabelaAdmV();
+        tabelaAdm.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_MostrarTabelas
+
+    private void jBRemoverFilme(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBRemoverFilme
+        // TODO add your handling code here:
+        listaAdmC crtl=new listaAdmC();
+        int idFilme=Integer.parseInt(jTIDFilme.getText());
+        crtl.removerFilmeAdm(idFilme);
+        
+    }//GEN-LAST:event_jBRemoverFilme
 
     /**
      * @param args the command line arguments

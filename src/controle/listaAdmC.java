@@ -39,26 +39,25 @@ public class listaAdmC {
             er.printStackTrace();
     }
     }
-    public void buscaFilmeAdm(listaAdmM obj){
+    public void ListarFilmesAdm(listaAdmM obj){
         try{
             bd.conexao();
             String sql = "select * from filmes";
             bd.getStatement().execute(sql);
            
             javax.swing.JOptionPane aviso = new javax.swing.JOptionPane();
-            aviso.showMessageDialog(null, "busca realizada");
+            aviso.showMessageDialog(null, "Busca realizada");
             bd.desconecta();
         }catch(Exception er){
             er.printStackTrace();
-    }
-        
+        }  
     }
     
     
-    public void removerFilmeAdm(String nomeFilme){
+    public void removerFilmeAdm(int idFilme){
         try{
             bd.conexao();
-            String sql="delete from filmes where nomeFilme='"+nomeFilme+"'";
+            String sql="delete from filmes where idFilme='"+idFilme+"'";
             bd.getStatement().execute(sql);
             
             javax.swing.JOptionPane aviso = new javax.swing.JOptionPane();

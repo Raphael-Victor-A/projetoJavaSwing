@@ -125,6 +125,11 @@ public class TabelaAdmV extends javax.swing.JFrame {
 
         jButton4.setText("FILMES");
         jButton4.setInheritsPopupMenu(true);
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBTableFilmes(evt);
+            }
+        });
 
         jButton5.setText("USUÁRIOS");
 
@@ -211,6 +216,11 @@ public class TabelaAdmV extends javax.swing.JFrame {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jBTableFilmes(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBTableFilmes
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_jBTableFilmes
 
     /**
      * @param args the command line arguments
