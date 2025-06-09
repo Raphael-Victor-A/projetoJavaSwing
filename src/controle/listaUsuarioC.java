@@ -10,6 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import modelo.listaUsuarioM;
 import modelo.usuarioM;
+import modelo.sessaoUsuarioM;
 
 /**
  *
@@ -17,10 +18,17 @@ import modelo.usuarioM;
  */
 public class listaUsuarioC {
     
+    
     public ResultSet dadosConsulta;
     bancoDeDados bd=new bancoDeDados();
     
-    public void inserirFilmeUsuario(listaUsuarioM obj, usuarioM user) {
+    public void inserirFilmeUsuario(listaUsuarioM obj) {
+    usuarioM user = sessaoUsuarioM.getInstance().getUsuarioLogado();
+    if (user == null) {
+        javax.swing.JOptionPane aviso = new javax.swing.JOptionPane();
+        aviso.showMessageDialog(null, "Nenhum usuário logado!");
+        return;
+    }
     Connection conn = null;
     PreparedStatement psFilme = null;
     PreparedStatement psInsert = null;

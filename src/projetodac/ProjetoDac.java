@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
  */
 package projetodac;
+import visão.principal;
 
 /**
  *
@@ -16,7 +17,8 @@ public class ProjetoDac {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+        principal inicio=new principal();
+        inicio.setVisible(true);
     }
     
 }

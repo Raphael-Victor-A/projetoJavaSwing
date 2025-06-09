@@ -86,5 +86,21 @@ public class usuarioC {
     }
     return sucesso;
 }
+    public boolean verificarLogin(String nomeUsuario, String senha) {
+        try {
+            bd.conexao();
+            String sql = "SELECT * FROM usuario WHERE nomeUsuario = ? AND senha = ?";
+            PreparedStatement ps = bd.getConnection().prepareStatement(sql);
+            ps.setString(1, nomeUsuario);
+            ps.setInt(2, Integer.parseInt(senha));
 
+            ResultSet rs = ps.executeQuery();
+            return rs.next(); // Retorna true se encontrou o usuário
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        } finally {
+            bd.desconecta();
+        }
+    }
 }
