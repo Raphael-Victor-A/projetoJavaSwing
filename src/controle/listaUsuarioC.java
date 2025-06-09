@@ -84,7 +84,7 @@ public class listaUsuarioC {
             er.printStackTrace();
         }
     }
-    public boolean atualizarUsuario(listaUsuarioM usuario, usuarioM user) {
+    public boolean atualizarListaUsuario(listaUsuarioM usuario, usuarioM user) {
     Connection conn = null;
     PreparedStatement ps = null;
     boolean sucesso = false;
