@@ -5,6 +5,7 @@
 package visão;
 
 import controle.listaAdmC;
+import javax.swing.JOptionPane;
 import modelo.listaAdmM;
 import visão.TabelaAdmV;
 
@@ -30,6 +31,7 @@ public class TelaAdmV extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jBAlterar = new javax.swing.JButton();
         jInternalFrame1 = new javax.swing.JInternalFrame();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -94,7 +96,9 @@ public class TelaAdmV extends javax.swing.JFrame {
         jTIdioma = new javax.swing.JTextField();
         jTDuracao = new javax.swing.JTextField();
         jBCadastrarFilme = new javax.swing.JButton();
-        jBAlterar = new javax.swing.JButton();
+        jLabel25 = new javax.swing.JLabel();
+        jTIdFilmeAlterar = new javax.swing.JTextField();
+        jBAterarFilmes = new javax.swing.JButton();
         jBTabelas = new javax.swing.JButton();
         jPanel8 = new javax.swing.JPanel();
         jLabel23 = new javax.swing.JLabel();
@@ -104,6 +108,8 @@ public class TelaAdmV extends javax.swing.JFrame {
         jLabel24 = new javax.swing.JLabel();
         jTIDUsuario = new javax.swing.JTextField();
         jBRemoverUsuario = new javax.swing.JButton();
+
+        jBAlterar.setText("Alterar");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -566,7 +572,14 @@ public class TelaAdmV extends javax.swing.JFrame {
             }
         });
 
-        jBAlterar.setText("Alterar");
+        jLabel25.setText("ID Filme");
+
+        jBAterarFilmes.setText("Alterar");
+        jBAterarFilmes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBAlterarFilme(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
@@ -574,34 +587,31 @@ public class TelaAdmV extends javax.swing.JFrame {
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel7Layout.createSequentialGroup()
                 .addGap(32, 32, 32)
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jBCadastrarFilme)
-                    .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jLabel18)
-                        .addComponent(jLabel17)
-                        .addComponent(jLabel19)
-                        .addComponent(jLabel20)
-                        .addComponent(jLabel21)
-                        .addComponent(jLabel22)))
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel18)
+                    .addComponent(jLabel17)
+                    .addComponent(jLabel19)
+                    .addComponent(jLabel20)
+                    .addComponent(jLabel21)
+                    .addComponent(jLabel22)
+                    .addGroup(jPanel7Layout.createSequentialGroup()
+                        .addComponent(jBCadastrarFilme)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel25)))
+                .addGap(18, 18, 18)
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel7Layout.createSequentialGroup()
-                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel7Layout.createSequentialGroup()
-                                .addGap(18, 18, 18)
-                                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jTFilme)
-                                    .addComponent(jTAno)
-                                    .addComponent(jTGenero)
-                                    .addComponent(jTIdioma)
-                                    .addComponent(jTDuracao, javax.swing.GroupLayout.DEFAULT_SIZE, 198, Short.MAX_VALUE)))
-                            .addGroup(jPanel7Layout.createSequentialGroup()
-                                .addGap(72, 72, 72)
-                                .addComponent(jBAlterar)))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
-                        .addComponent(jTAutor, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
+                        .addComponent(jTIdFilmeAlterar, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jBAterarFilmes))
+                    .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jTFilme)
+                        .addComponent(jTAno)
+                        .addComponent(jTGenero)
+                        .addComponent(jTIdioma)
+                        .addComponent(jTDuracao, javax.swing.GroupLayout.DEFAULT_SIZE, 198, Short.MAX_VALUE))
+                    .addComponent(jTAutor, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -633,8 +643,10 @@ public class TelaAdmV extends javax.swing.JFrame {
                 .addGap(10, 10, 10)
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jBCadastrarFilme)
-                    .addComponent(jBAlterar))
-                .addContainerGap(10, Short.MAX_VALUE))
+                    .addComponent(jLabel25)
+                    .addComponent(jTIdFilmeAlterar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jBAterarFilmes))
+                .addContainerGap(12, Short.MAX_VALUE))
         );
 
         jBTabelas.setText("Mostrar Tabelas");
@@ -730,14 +742,14 @@ public class TelaAdmV extends javax.swing.JFrame {
                 .addContainerGap())
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 306, Short.MAX_VALUE)
+                    .addGap(0, 323, Short.MAX_VALUE)
                     .addComponent(jInternalFrame1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 306, Short.MAX_VALUE)))
+                    .addGap(0, 323, Short.MAX_VALUE)))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 306, Short.MAX_VALUE)
+                    .addGap(0, 323, Short.MAX_VALUE)
                     .addComponent(jInternalFrame2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 306, Short.MAX_VALUE)))
+                    .addGap(0, 323, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -754,14 +766,14 @@ public class TelaAdmV extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 125, Short.MAX_VALUE)
+                    .addGap(0, 126, Short.MAX_VALUE)
                     .addComponent(jInternalFrame1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 125, Short.MAX_VALUE)))
+                    .addGap(0, 126, Short.MAX_VALUE)))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 125, Short.MAX_VALUE)
+                    .addGap(0, 126, Short.MAX_VALUE)
                     .addComponent(jInternalFrame2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 125, Short.MAX_VALUE)))
+                    .addGap(0, 126, Short.MAX_VALUE)))
         );
 
         pack();
@@ -860,6 +872,41 @@ public class TelaAdmV extends javax.swing.JFrame {
         
     }//GEN-LAST:event_jBRemoverFilme
 
+    private void jBAlterarFilme(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBAlterarFilme
+// 1. Pegar os dados das caixas de texto
+        String nomeFilme = jTFilme.getText();
+        String autor = jTAutor.getText();
+        String genero = jTGenero.getText();
+        String idioma = jTIdioma.getText();
+        int anoPublicacao = Integer.parseInt(jTAno.getText()); // Cuidado com NumberFormatException
+        int duracaoMinutos = Integer.parseInt(jTDuracao.getText()); // Cuidado com NumberFormatException
+        int idFilmeParaAtualizar = Integer.parseInt(jTIdFilmeAlterar.getText());
+        
+// 2. Criar um objeto Filme com os novos dados
+        listaAdmM filmeAtualizado = new listaAdmM(nomeFilme, anoPublicacao, autor, genero, idioma, duracaoMinutos);
+        filmeAtualizado.setNomeFilme(nomeFilme);
+        filmeAtualizado.setAutor(autor);
+        filmeAtualizado.setGenero(genero);
+        filmeAtualizado.setIdioma(idioma);
+        filmeAtualizado.setAnoPublicacao(anoPublicacao);
+        filmeAtualizado.setDuracaoMinutos(duracaoMinutos);
+
+// 3. Obter o ID do filme que você quer atualizar (pode vir de uma tabela selecionada, ou de outro campo)
+
+
+// 4. Chamar o método de atualização
+// Supondo que 'seuObjetoDAO' é uma instância da classe que contém 'atualizarListaFilmes'
+        listaAdmC controleFilmes = new listaAdmC();
+        boolean sucesso = controleFilmes.atualizarListaFilmes(idFilmeParaAtualizar, filmeAtualizado);
+
+        if (sucesso) {
+    // Atualização bem-sucedida, talvez exibir uma mensagem para o usuário
+            } else {
+    // Houve um problema, exibir mensagem de erro
+        }
+        
+    }//GEN-LAST:event_jBAlterarFilme
+
     /**
      * @param args the command line arguments
      */
@@ -897,6 +944,7 @@ public class TelaAdmV extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBAlterar;
+    private javax.swing.JButton jBAterarFilmes;
     private javax.swing.JButton jBCadastrarFilme;
     private javax.swing.JButton jBRemoverFilme;
     private javax.swing.JButton jBRemoverUsuario;
@@ -930,6 +978,7 @@ public class TelaAdmV extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel24;
+    private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -953,6 +1002,7 @@ public class TelaAdmV extends javax.swing.JFrame {
     private javax.swing.JTextField jTGenero;
     private javax.swing.JTextField jTIDFilme;
     private javax.swing.JTextField jTIDUsuario;
+    private javax.swing.JTextField jTIdFilmeAlterar;
     private javax.swing.JTextField jTIdioma;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField10;

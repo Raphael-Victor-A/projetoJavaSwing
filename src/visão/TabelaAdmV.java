@@ -132,6 +132,11 @@ public class TabelaAdmV extends javax.swing.JFrame {
         });
 
         jButton5.setText("USUÁRIOS");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
 
         jButton6.setText("LISTA DE AVALIAÇÕES");
 
@@ -221,6 +226,10 @@ public class TabelaAdmV extends javax.swing.JFrame {
         // TODO add your handling code here:
         
     }//GEN-LAST:event_jBTableFilmes
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton5ActionPerformed
 
     /**
      * @param args the command line arguments

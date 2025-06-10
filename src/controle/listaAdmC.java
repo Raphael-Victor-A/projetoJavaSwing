@@ -68,45 +68,47 @@ public class listaAdmC {
             er.printStackTrace();
         }
     }
-    public boolean atualizarListaFilmes(listaAdmM usuario) {
+    public boolean atualizarListaFilmes(int idFilme, listaAdmM filmeParaAtualizar) {
     Connection conn = null;
     PreparedStatement ps = null;
     boolean sucesso = false;
 
     try {
-       
-        bd.conexao(); 
-        conn = bd.getConnection(); 
+        // Assume que 'bd' é uma instância da sua classe de conexão ao banco de dados
+        bd.conexao();
+        conn = bd.getConnection();
 
-       
-        String sql = "UPDATE filmes SET anoPublicacao=?, autor=?, genero=?, idioma=?,duracaoMinutos=? WHERE nomeFilme = ?";
+        // Query SQL com parâmetros para evitar injeção de SQL
+        String sql = "UPDATE filmes SET anoPublicacao=?, autor=?, genero=?, idioma=?, duracaoMinutos=?, nomeFilme=? WHERE idFilme=?";
         ps = conn.prepareStatement(sql);
 
-        
-        ps.setInt(1, usuario.getAnoPublicacao());
-        ps.setString(2, usuario.getAutor());
-        ps.setString(3, usuario.getGenero());
-        ps.setString(4, usuario.getIdioma());
-        ps.setInt(5, usuario.getDuracaoMinutos());
-        ps.setString(6, usuario.getNomeFilme());
-       
-        int linhasAfetadas = ps.executeUpdate(); 
+        // Define os valores dos parâmetros do PreparedStatement
+        // Os valores são pegos do objeto 'filmeParaAtualizar'
+        ps.setInt(1, filmeParaAtualizar.getAnoPublicacao());
+        ps.setString(2, filmeParaAtualizar.getAutor());
+        ps.setString(3, filmeParaAtualizar.getGenero());
+        ps.setString(4, filmeParaAtualizar.getIdioma());
+        ps.setInt(5, filmeParaAtualizar.getDuracaoMinutos());
+        ps.setString(6, filmeParaAtualizar.getNomeFilme());
+        ps.setInt(7, idFilme); // O ID do filme para a cláusula WHERE
+
+        int linhasAfetadas = ps.executeUpdate();
 
         if (linhasAfetadas > 0) {
             System.out.println("Filme atualizado com sucesso!");
             sucesso = true;
         } else {
-            System.out.println("Nenhum Filme encontrado com o nome fornecido ou nenhum dado alterado.");
+            System.out.println("Nenhum filme encontrado com o ID fornecido ou nenhum dado alterado.");
         }
 
     } catch (SQLException e) {
-        System.err.println("Erro ao atualizar Filme: " + e.getMessage());
-        e.printStackTrace(); 
+        System.err.println("Erro ao atualizar filme: " + e.getMessage());
+        e.printStackTrace();
     } finally {
-       
+        // Fechar recursos em um bloco finally é crucial para evitar vazamentos
         try {
             if (ps != null) ps.close();
-            bd.desconecta(); 
+            if (conn != null) bd.desconecta(); // Assumindo que desconecta fecha a conexão
         } catch (SQLException e) {
             System.err.println("Erro ao fechar recursos após atualização: " + e.getMessage());
         }
