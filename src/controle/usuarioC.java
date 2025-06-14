@@ -12,13 +12,27 @@ import java.sql.Statement;
 import modelo.usuarioM;
 
 /**
+ * Esta classe é utilizada para manipular os dados de usuário
+ * 
+ * A classe possui métodos para inserir um novo usuário, remoção de usuário,
+ * atualização de senha e verificação de login.
  *
- * @author ra189362
+ * @author Jarbas Ribeiro
+ * @since Maio de 2025
  */
 public class usuarioC {
     public ResultSet dadosConsulta;
     bancoDeDados bd=new bancoDeDados();
     
+    /**
+     * Insere um novo usuário no banco de dados
+     * 
+     * O metódo estabelece conexão com o banco, insere os dados do usuário na tabela usuário,
+     * exibe uma mensagem de confirmação e fecha a conexão.
+     * 
+     *
+     * @param obj Objeto do tipo usuarioM que contém nome de usuário e senha
+     */
     public void inserirUsuario(usuarioM obj){
     try{
         bd.conexao();
@@ -32,6 +46,14 @@ public class usuarioC {
             er.printStackTrace();
     }
     }
+    /**
+     * Remove um usuário do banco de dados com base no nome de usuário fornecido.
+     * 
+     * Este método estabelece conexão com o banco, executa o comando para remover
+     * o usuário da tabela "usuario" e exibe uma mensagem de confirmação.
+     * 
+     * @param nomeUsuario O nome do usuário que será removido do banco de dados
+     */
     public void removerUsuario(String nomeUsuario){
         try{
             bd.conexao();
@@ -46,6 +68,16 @@ public class usuarioC {
             er.printStackTrace();
         }
     }
+    /**
+     * Atualiza a senha de um usuário no banco de dados
+     * 
+     * O método estabelece conexão com o banco de dados, utiliza um PreparedStatement
+     * para atualizar a senha do usuário com base no seu nome de usuário e retorna um valor booleano
+     * indicando se a operaçao foi bem-sucedida.
+     * 
+     * @param usuario Objeto do tipo usuarioM contendo o nome do usuário e a nova senha.
+     * @return True se a atualização ocorrer com sucesso; False caso contrário
+     */
     public boolean atualizarUsuario(usuarioM usuario) {
     Connection conn = null;
     PreparedStatement ps = null;
@@ -86,6 +118,17 @@ public class usuarioC {
     }
     return sucesso;
 }
+    /**
+     * Verifica se as informações para o login são válidas.
+     * 
+     * O método realiza a autenticação do usuário utilizando os parâmetros informados para consulta
+     * no banco de dados. Se o usuário "admin" e a senha for "1234" o login é automaticamente aceito,
+     * sem precisar verificar no banco de dados.
+     * 
+     * @param nomeUsuario O nome do usuário utilizado para login.
+     * @param senha A senha correspondente ao nome de usuário
+     * @return True se as credenciais forem válidas; False caso contrário.
+     */
     public boolean verificarLogin(String nomeUsuario, String senha) {
         try {
         bd.conexao();

@@ -13,15 +13,29 @@ import modelo.usuarioM;
 import modelo.sessaoUsuarioM;
 
 /**
- *
- * @author ra189362
+ * Esse método contém as funções para manipular a lista de filmes de um usuário logado.
+ * 
+ * 
+ * 
+ * @author Raphael
  */
 public class listaUsuarioC {
-    
     
     public ResultSet dadosConsulta;
     bancoDeDados bd=new bancoDeDados();
     
+    /**
+     * Insere uma nova avaliação de filmes na lista do usuário que realizou o login
+     * 
+     * Verifica se o usuário está logado na sessão atual. Depois, verifica se o filme
+     * informado existe na tabela "filmes". Caso exista, insere os dados da avaliação
+     * na tabela filmesAvaliados, associando o usuário ao filme. Além disso, exibe men
+     * sagens de aviso em caso de sucesso, erro ou quando não encontrar o filme no catá
+     * logo.
+     * 
+     * @param obj Objeto do tipo listaUsuarioM contendo os dados da avalição: nome do filme,
+     * nota e comentários.
+     */
     public void inserirFilmeUsuario(listaUsuarioM obj) {
     usuarioM user = sessaoUsuarioM.getInstance().getUsuarioLogado();
     if (user == null) {
@@ -78,10 +92,19 @@ public class listaUsuarioC {
         }
     }
 }
+    /**
+     * Remove um filme da lista do usuário logado. 
+     * 
+     * Este método remove um registro com base no nome do filme e no nome do usuário.
+     * Exibe uma mensagem dizendo o resultado da operação.
+     * 
+     * @param nomeFilme O nome do filme a ser removido
+     * @param nomeUsuario O nome do usuário que avaliou o filme
+     */
     public void removerFilmeUsuario(String nomeFilme, String nomeUsuario){
         try{
             bd.conexao();
-            String sql="delete from filmesAvaliados where nomeFilme='"+nomeFilme+"' and '"+nomeUsuario+"'";
+            String sql="delete from filmesAvaliados where nomeFilme='"+nomeFilme+"' and nomeUsuario='"+nomeUsuario+"'";
             bd.getStatement().execute(sql);
             
             javax.swing.JOptionPane aviso = new javax.swing.JOptionPane();
@@ -92,6 +115,18 @@ public class listaUsuarioC {
             er.printStackTrace();
         }
     }
+    /**
+     * Atualiza a nota e os comentários de um filme avaliado por um usuário.
+     * 
+     * Esse método acessa a tabela "filmesAvaliados" e atualiza a avaliação de um filme
+     * com base no nome do filme e no nome do usuário.
+     * Nota e comentários são substituidos por valores informados.
+     * 
+     * @param usuario Objeto contendo o nome do filme, a nova nota e os novos comentários.
+     * @param user Representa o usuário logado que avaliou o filme.
+     * @return True se a atualização foi bem-sucedida, caso altere algum registro; False caso contrário, ou seja, não 
+     * encontrou um registro ou dos dados estão inalterados.
+     */
     public boolean atualizarListaUsuario(listaUsuarioM usuario, usuarioM user) {
     Connection conn = null;
     PreparedStatement ps = null;
