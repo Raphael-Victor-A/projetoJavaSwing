@@ -39,18 +39,29 @@ public class listaAdmC {
             er.printStackTrace();
     }
     }
-    public void ListarFilmesAdm(listaAdmM obj){
+    public ResultSet ListarFilmesAdm(){
+    ResultSet rs = null;
         try{
             bd.conexao();
             String sql = "select * from filmes";
-            bd.getStatement().execute(sql);
-           
-            javax.swing.JOptionPane aviso = new javax.swing.JOptionPane();
-            aviso.showMessageDialog(null, "Busca realizada");
-            bd.desconecta();
+            bd.getStatement().execute(sql);         
+            rs = bd.getStatement().executeQuery(sql);   
         }catch(Exception er){
             er.printStackTrace();
         }  
+        return rs;
+    }
+    public ResultSet ListarFilmesAvaliados(){
+        ResultSet rsa = null;
+            try{
+                bd.conexao();
+                String sql = "select * from filmesAvaliados";
+                bd.getStatement().execute(sql);         
+                rsa = bd.getStatement().executeQuery(sql);   
+            }catch(Exception er){
+                er.printStackTrace();
+            }  
+            return rsa;
     }
     
     
@@ -62,6 +73,20 @@ public class listaAdmC {
             
             javax.swing.JOptionPane aviso = new javax.swing.JOptionPane();
             aviso.showMessageDialog(null, "Filme removido");
+            
+            bd.desconecta();
+        }catch(Exception er){
+            er.printStackTrace();
+        }
+    }
+    public void removerUsuario(int idUsuario){
+        try{
+            bd.conexao();
+            String sql="delete from usuario where idUsuario='"+idUsuario+"'";
+            bd.getStatement().execute(sql);
+            
+            javax.swing.JOptionPane aviso = new javax.swing.JOptionPane();
+            aviso.showMessageDialog(null, "Usuario removido");
             
             bd.desconecta();
         }catch(Exception er){

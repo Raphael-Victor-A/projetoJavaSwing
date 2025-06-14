@@ -170,5 +170,16 @@ public class listaUsuarioC {
     }
     return sucesso;
 }
-
+    public ResultSet ListarUsuarios(){
+         ResultSet rsu = null;
+            try{
+                bd.conexao();
+                String sql = "select * from usuario";
+                bd.getStatement().execute(sql);         
+                rsu = bd.getStatement().executeQuery(sql);   
+        }catch(Exception er){
+            er.printStackTrace();
+        }  
+        return rsu;
+    }
 }

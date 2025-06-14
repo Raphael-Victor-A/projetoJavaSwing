@@ -8,6 +8,7 @@ import controle.listaAdmC;
 import javax.swing.JOptionPane;
 import modelo.listaAdmM;
 import visão.TabelaAdmV;
+import controle.listaUsuarioC;
 
 /**
  *
@@ -700,6 +701,11 @@ public class TelaAdmV extends javax.swing.JFrame {
 
         jBRemoverUsuario.setText("Remover");
         jBRemoverUsuario.setToolTipText("");
+        jBRemoverUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBRemoverUsuario(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
         jPanel9.setLayout(jPanel9Layout);
@@ -906,6 +912,13 @@ public class TelaAdmV extends javax.swing.JFrame {
         }
         
     }//GEN-LAST:event_jBAlterarFilme
+
+    private void jBRemoverUsuario(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBRemoverUsuario
+        // TODO add your handling code here:
+        listaAdmC crtl=new listaAdmC();
+        int idUsuario=Integer.parseInt(jTIDUsuario.getText());
+        crtl.removerUsuario(idUsuario);
+    }//GEN-LAST:event_jBRemoverUsuario
 
     /**
      * @param args the command line arguments

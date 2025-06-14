@@ -4,6 +4,12 @@
  */
 package visão;
 
+import controle.listaAdmC;
+import controle.listaUsuarioC;
+import java.sql.ResultSet;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author vinih
@@ -35,8 +41,8 @@ public class TabelaAdmV extends javax.swing.JFrame {
         jTable2 = new javax.swing.JTable();
         jPanel2 = new javax.swing.JPanel();
         jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
+        jBUsuarios = new javax.swing.JButton();
+        jBAvaliacoes = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
         jTable3 = new javax.swing.JTable();
 
@@ -131,14 +137,19 @@ public class TabelaAdmV extends javax.swing.JFrame {
             }
         });
 
-        jButton5.setText("USUÁRIOS");
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
+        jBUsuarios.setText("USUÁRIOS");
+        jBUsuarios.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
+                jBUsuarios(evt);
             }
         });
 
-        jButton6.setText("LISTA DE AVALIAÇÕES");
+        jBAvaliacoes.setText("LISTA DE AVALIAÇÕES");
+        jBAvaliacoes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBAvaliacoes(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -146,13 +157,13 @@ public class TabelaAdmV extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(9, 9, 9)
-                .addComponent(jButton6)
+                .addComponent(jBAvaliacoes)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addGap(0, 41, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton5))
+                    .addComponent(jBUsuarios))
                 .addGap(41, 41, 41))
         );
         jPanel2Layout.setVerticalGroup(
@@ -161,9 +172,9 @@ public class TabelaAdmV extends javax.swing.JFrame {
                 .addGap(29, 29, 29)
                 .addComponent(jButton4)
                 .addGap(29, 29, 29)
-                .addComponent(jButton5)
+                .addComponent(jBUsuarios)
                 .addGap(29, 29, 29)
-                .addComponent(jButton6)
+                .addComponent(jBAvaliacoes)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -223,13 +234,112 @@ public class TabelaAdmV extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jBTableFilmes(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBTableFilmes
-        // TODO add your handling code here:
-        
+    try {
+        listaAdmC ctrl = new listaAdmC();
+        ResultSet rs = ctrl.ListarFilmesAdm();
+        preencherTabela(rs);
+        rs.getStatement().getConnection().close();
+    } catch (Exception e) {
+        e.printStackTrace();
+        JOptionPane.showMessageDialog(this, "Erro ao consultar filmes: " + e.getMessage());
+    }
+}
+    //GEN-LAST:event_ConsultaPorId
+    private void preencherTabela(ResultSet rs) {
+        try {
+                DefaultTableModel modelo = new DefaultTableModel(
+                    new Object[]{"IDFilme", "NomeFilme", "AnoPublicacao", "Autor", "Genero", "Idioma", "DuracaoMinutos"}, 0
+                );
+
+                while (rs.next()) {
+                    int id = rs.getInt("idFilme");
+                    String nomeFilme = rs.getString("nomeFilme");
+                    int anopublicacao = rs.getInt("anopublicacao");
+                    String autor = rs.getString("autor");
+                    String genero = rs.getString("genero");
+                    String idioma = rs.getString("idioma");             
+                    int duracaominutos = rs.getInt("duracaominutos");
+
+                    modelo.addRow(new Object[]{id, nomeFilme, anopublicacao, autor, genero, idioma, duracaominutos});
+                }
+
+                jTable3.setModel(modelo);
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
     }//GEN-LAST:event_jBTableFilmes
 
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+    private void jBUsuarios(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBUsuarios
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton5ActionPerformed
+        try {
+            listaUsuarioC ctrl = new listaUsuarioC();
+            ResultSet rsu = ctrl.ListarUsuarios();
+            preencherTabela2(rsu);
+            rsu.getStatement().getConnection().close();
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Erro ao consultar usuarios: " + e.getMessage());
+        }
+    }
+    //GEN-LAST:event_ConsultaPorId
+    private void preencherTabela2(ResultSet rsu) {
+        try {
+                DefaultTableModel modelo = new DefaultTableModel(
+                    new Object[]{"IDUsuario", "NomeUsuario", "Senha"}, 0
+                );
+
+                while (rsu.next()) {
+                    int idusuario = rsu.getInt("idusuario");
+                    String nomeUsuario = rsu.getString("nomeusuario");
+                    int senha = rsu.getInt("senha");
+
+                    modelo.addRow(new Object[]{idusuario, nomeUsuario, senha});
+                }
+
+                jTable3.setModel(modelo);
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        
+    }//GEN-LAST:event_jBUsuarios
+
+    private void jBAvaliacoes(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBAvaliacoes
+        // TODO add your handling code here:
+        try {
+            listaAdmC ctrl = new listaAdmC();
+            ResultSet rsa = ctrl.ListarFilmesAvaliados();
+            preencherTabela3(rsa);
+            rsa.getStatement().getConnection().close();
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Erro ao consultar avaliações: " + e.getMessage());
+        }
+    }
+    //GEN-LAST:event_ConsultaPorId
+    private void preencherTabela3(ResultSet rsa) {
+        try {
+                DefaultTableModel modelo = new DefaultTableModel(
+                    new Object[]{"IDAvaliacao","IDFilme", "NomeUsuario", "Nota","Comentarios"}, 0
+                );
+
+                while (rsa.next()) {
+                    int idavaliacao = rsa.getInt("idavaliacao");
+                    int idfilme = rsa.getInt("idfilme");
+                    String nomeUsuario = rsa.getString("nomeusuario");
+                    int nota = rsa.getInt("nota");
+                    String comentarios = rsa.getString("comentarios");
+
+                    modelo.addRow(new Object[]{idavaliacao, idfilme, nomeUsuario, nota, comentarios});
+                }
+
+                jTable3.setModel(modelo);
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            } 
+    }//GEN-LAST:event_jBAvaliacoes
 
     /**
      * @param args the command line arguments
@@ -267,12 +377,12 @@ public class TabelaAdmV extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jBAvaliacoes;
+    private javax.swing.JButton jBUsuarios;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
     private javax.swing.JInternalFrame jInternalFrame1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
