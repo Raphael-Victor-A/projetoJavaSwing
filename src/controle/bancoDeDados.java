@@ -12,8 +12,10 @@ import java.sql.Statement;
 
 
 /**
- *
- * @author jarba
+ * Essa classe possui métodos para interação com o banco de dados.
+ * 
+ * A classe possui métodos para fazer a conexão e a desconexão com o banco de dados.
+ * @author Alexsandro
  */
 public class bancoDeDados {
       // Objeto de COnexão com BD
@@ -22,7 +24,16 @@ public class bancoDeDados {
     public Statement stmt;
     // Objeto com dados SQL
     private ResultSet res;
-    
+    /**
+     * Esse método realiza a conexão com o banco de dados e cria um Statement 
+     * para a excução de comandos SQL.
+     * 
+     * O metodo carrega o driver JDBC do PostgreSQL, realiza a conexão com o BD 
+     * utilizando as credenciais fornecidas, e cria o Statement configurado para permitir
+     * a leitura dos resultados.
+     * 
+     * Em caso de erro, mensagens são exibidas no console e exceções são impressas.
+     */
     public void conexao(){
        try
        {
@@ -43,14 +54,28 @@ public class bancoDeDados {
        }
     }
     
+    /**
+     * Retorna o objeto Connection associado a conexão com o BD.
+     * @return um objeto conn se a conexão for estabelecida com sucesso; caso contrário, pode 
+     * retornar null.
+     */
      public Connection getConnection(){
         return conn;
     }
-    
+    /**
+     * Retorna o objeto Statement para execução de comandos SQL.
+     * @return um objeto Statement se for criado com sucesso; caso contrário Null.
+     */
     public Statement getStatement(){
         return stmt;
     }
-    
+    /**
+     * Encerra a conexão com o banco de dados.
+     * 
+     * O método verifica se o objeto conn é nulo antes de fechá-lo. Caso ocorra 
+     * uma exceção ao tentar encerrar a conexão, a pilha de erro será impressa no 
+     * console.
+     */
     public void desconecta(){
         if(conn != null){
             try{

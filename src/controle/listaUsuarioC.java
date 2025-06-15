@@ -13,7 +13,7 @@ import modelo.usuarioM;
 import modelo.sessaoUsuarioM;
 
 /**
- * Esse método contém as funções para manipular a lista de filmes de um usuário logado.
+ * Essa classe contém as funções para manipular a lista de filmes de um usuário logado.
  * 
  * 
  * 
