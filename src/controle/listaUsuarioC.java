@@ -8,6 +8,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import javax.swing.JOptionPane;
 import modelo.listaUsuarioM;
 import modelo.usuarioM;
 import modelo.sessaoUsuarioM;
@@ -37,59 +38,21 @@ public class listaUsuarioC {
      * nota e comentários.
      */
     public void inserirFilmeUsuario(listaUsuarioM obj) {
-    usuarioM user = sessaoUsuarioM.getInstance().getUsuarioLogado();
-    if (user == null) {
-        javax.swing.JOptionPane aviso = new javax.swing.JOptionPane();
-        aviso.showMessageDialog(null, "Nenhum usuário logado!");
-        return;
-    }
-    Connection conn = null;
-    PreparedStatement psFilme = null;
-    PreparedStatement psInsert = null;
-    ResultSet rs = null;
-
     try {
         bd.conexao();
-        conn = bd.getConnection();
-
-        // 1. Verifica se o filme já existe na tabela filmes
-        String sqlCheck = "SELECT idFilme FROM filmes WHERE nomeFilme = ?";
-        psFilme = conn.prepareStatement(sqlCheck);
-        psFilme.setString(1, obj.getNomeFilme());
-        rs = psFilme.executeQuery();
-
-        if (rs.next()) {
-            int idFilme = rs.getInt("idFilme");
-
-            // 2. Insere na tabela filmesAvaliados (relacionando com o filme existente)
-            String sqlInsert = "INSERT INTO filmesAvaliados (idFilme, nomeUsuario, nota, comentarios) VALUES (?, ?, ?, ?)";
-            psInsert = conn.prepareStatement(sqlInsert);
-            psInsert.setInt(1, idFilme);
-            psInsert.setString(2, user.getNomeUsuario());  
-            psInsert.setInt(3, obj.getNotaFilme());
-            psInsert.setString(4, obj.getComentarios());
-
-            psInsert.executeUpdate();
-
-            javax.swing.JOptionPane aviso = new javax.swing.JOptionPane();
-            aviso.showMessageDialog(null, "Filme avaliado com sucesso!");
-
-        } else {
-            javax.swing.JOptionPane aviso = new javax.swing.JOptionPane();
-            aviso.showMessageDialog(null, "Filme não encontrado no catálogo!");
-        }
-
-    } catch (SQLException e) {
-        e.printStackTrace();
-    } finally {
-        try {
-            if (rs != null) rs.close();
-            if (psFilme != null) psFilme.close();
-            if (psInsert != null) psInsert.close();
-            bd.desconecta();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        
+        // Corrigindo a construção da query SQL com aspas adequadas
+        String sql = "INSERT INTO filmesAvaliados (idfilme, nomeusuario, nota, comentarios) " +
+                     "VALUES (" + obj.getIdFilme() + ", '" + obj.getNomeUsuario() + "', " + 
+                     obj.getNotaFilme() + ", '" + obj.getComentarios().replace("'", "''") + "')";
+        
+        bd.getStatement().execute(sql);
+        
+        JOptionPane.showMessageDialog(null, "Avaliação cadastrada com sucesso");
+        bd.desconecta();
+    } catch(Exception er) {
+        er.printStackTrace();
+        JOptionPane.showMessageDialog(null, "Erro ao cadastrar avaliação: " + er.getMessage());
     }
 }
     /**
@@ -143,7 +106,6 @@ public class listaUsuarioC {
 
         ps.setInt(1, usuario.getNotaFilme());
         ps.setString(2, usuario.getComentarios());
-        ps.setString(3, usuario.getNomeFilme());
         ps.setString(4, user.getNomeUsuario());
 
        

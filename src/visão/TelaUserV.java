@@ -434,7 +434,7 @@ public class TelaUserV extends javax.swing.JFrame {
         nota=Integer.parseInt(jTNota.getText());
         comentario = jTComentario.getText();
 
-        listaUsuarioM listaAdmm=new listaUsuarioM(idFilme, comentario, comentario, nota, comentario, comentario, comentario, FRAMEBITS);
+        listaUsuarioM listaAdmm=new listaUsuarioM(idFilme, nomeUsuario, nota, comentario);
         listaUsuarioC listaAdmc=new listaUsuarioC();
         listaAdmc.inserirFilmeUsuario(listaAdmm);
     }//GEN-LAST:event_jBCadastrar
