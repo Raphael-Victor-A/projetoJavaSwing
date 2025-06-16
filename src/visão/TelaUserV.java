@@ -63,7 +63,7 @@ public class TelaUserV extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         jTComentario = new javax.swing.JTextField();
         jBCadastrar = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
+        jBAtualizar = new javax.swing.JButton();
         jLabel9 = new javax.swing.JLabel();
         jTNome = new javax.swing.JTextField();
         jScrollPane3 = new javax.swing.JScrollPane();
@@ -278,7 +278,12 @@ public class TelaUserV extends javax.swing.JFrame {
             }
         });
 
-        jButton6.setText("Atualizar");
+        jBAtualizar.setText("Atualizar");
+        jBAtualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBAtualizar(evt);
+            }
+        });
 
         jLabel9.setText("Nome Usuario:");
 
@@ -296,6 +301,10 @@ public class TelaUserV extends javax.swing.JFrame {
                 .addGap(15, 15, 15)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addComponent(jLabel9)
+                        .addGap(18, 18, 18)
+                        .addComponent(jTNome))
+                    .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel7)
                             .addComponent(jLabel6))
@@ -304,18 +313,15 @@ public class TelaUserV extends javax.swing.JFrame {
                             .addComponent(jTNota)
                             .addComponent(jTIdFilme)))
                     .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel8)
-                            .addComponent(jLabel9))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTComentario)
-                            .addGroup(jPanel4Layout.createSequentialGroup()
-                                .addComponent(jButton6)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jBCadastrar)
-                                .addGap(14, 14, 14))
-                            .addComponent(jTNome))))
+                        .addComponent(jLabel8)
+                        .addGap(31, 31, 31)
+                        .addComponent(jTComentario))
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGap(29, 29, 29)
+                        .addComponent(jBAtualizar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 48, Short.MAX_VALUE)
+                        .addComponent(jBCadastrar)
+                        .addGap(40, 40, 40)))
                 .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
@@ -327,19 +333,19 @@ public class TelaUserV extends javax.swing.JFrame {
                     .addComponent(jTIdFilme, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel7)
-                    .addComponent(jTNota, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel9)
+                    .addComponent(jTNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTNota, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel7))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
                     .addComponent(jTComentario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel9))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton6)
+                    .addComponent(jBAtualizar)
                     .addComponent(jBCadastrar))
                 .addGap(15, 15, 15))
         );
@@ -400,7 +406,7 @@ public class TelaUserV extends javax.swing.JFrame {
                         .addGap(17, 17, 17)
                         .addComponent(jBMostrar)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 255, Short.MAX_VALUE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 227, Short.MAX_VALUE)
                 .addContainerGap())
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
@@ -490,6 +496,36 @@ public class TelaUserV extends javax.swing.JFrame {
         
     }//GEN-LAST:event_jBMostrar
 
+    private void jBAtualizar(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBAtualizar
+        // TODO add your handling code here:
+        // 1. Pegar os dados das caixas de texto
+        int idFilme = Integer.parseInt(jTIdFilme.getText());
+        String nomeUsuario = jTNome.getText();
+        int nota = Integer.parseInt(jTNota.getText());
+        String comentario = jTComentario.getText();
+        
+// 2. Criar um objeto Filme com os novos dados
+        listaUsuarioM avaliacaoAtualizado = new listaUsuarioM(idFilme, nomeUsuario, nota, comentario);
+        avaliacaoAtualizado.setIdFilme(idFilme);
+        avaliacaoAtualizado.setNomeUsuario(nomeUsuario);
+        avaliacaoAtualizado.setNotaFilme(nota);
+        avaliacaoAtualizado.setComentarios(comentario);
+
+// 3. Obter o ID do filme que você quer atualizar (pode vir de uma tabela selecionada, ou de outro campo)
+
+
+// 4. Chamar o método de atualização
+// Supondo que 'seuObjetoDAO' é uma instância da classe que contém 'atualizarListaFilmes'
+        listaUsuarioC controleAvaliacao = new listaUsuarioC();
+        boolean sucesso = controleAvaliacao.atualizarListaUsuario(avaliacaoAtualizado);
+
+        if (sucesso) {
+    // Atualização bem-sucedida, talvez exibir uma mensagem para o usuário
+            } else {
+    // Houve um problema, exibir mensagem de erro
+        }
+    }//GEN-LAST:event_jBAtualizar
+
     /**
      * @param args the command line arguments
      */
@@ -526,13 +562,13 @@ public class TelaUserV extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jBAtualizar;
     private javax.swing.JButton jBCadastrar;
     private javax.swing.JButton jBMostrar;
     private javax.swing.JButton jBRemover;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton6;
     private javax.swing.JInternalFrame jInternalFrame1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;

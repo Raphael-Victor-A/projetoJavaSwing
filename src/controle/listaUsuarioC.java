@@ -90,7 +90,7 @@ public class listaUsuarioC {
      * @return True se a atualização foi bem-sucedida, caso altere algum registro; False caso contrário, ou seja, não 
      * encontrou um registro ou dos dados estão inalterados.
      */
-    public boolean atualizarListaUsuario(listaUsuarioM usuario, usuarioM user) {
+    public boolean atualizarListaUsuario(listaUsuarioM usuario) {
     Connection conn = null;
     PreparedStatement ps = null;
     boolean sucesso = false;
@@ -101,25 +101,26 @@ public class listaUsuarioC {
         conn = bd.getConnection(); 
 
        
-        String sql = "UPDATE filmesAvaliados SET notaFilme=?,comentarios=? WHERE nomeFilme = ? and nomeUsuario = ?";
+        String sql = "UPDATE filmesAvaliados SET nota=?,comentarios=? WHERE idFilme = ? and nomeUsuario = ?";
         ps = conn.prepareStatement(sql);
 
         ps.setInt(1, usuario.getNotaFilme());
         ps.setString(2, usuario.getComentarios());
-        ps.setString(4, user.getNomeUsuario());
+        ps.setInt(3, usuario.getIdFilme());
+        ps.setString(4, usuario.getNomeUsuario());
 
        
         int linhasAfetadas = ps.executeUpdate(); 
 
         if (linhasAfetadas > 0) {
-            System.out.println("Filme atualizado com sucesso!");
+            System.out.println("Avaliação atualizada com sucesso!");
             sucesso = true;
         } else {
-            System.out.println("Nenhum Filme encontrado com o nome fornecido ou nenhum dado alterado.");
+            System.out.println("Nenhuma Avaliação encontrada.");
         }
 
     } catch (SQLException e) {
-        System.err.println("Erro ao atualizar Filme: " + e.getMessage());
+        System.err.println("Erro ao atualizar Avaliação: " + e.getMessage());
         e.printStackTrace(); 
     } finally {
        
