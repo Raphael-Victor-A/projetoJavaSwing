@@ -101,10 +101,10 @@ public class listaUsuarioC {
      * @param nomeFilme O nome do filme a ser removido
      * @param nomeUsuario O nome do usuário que avaliou o filme
      */
-    public void removerFilmeUsuario(String nomeFilme, String nomeUsuario){
+    public void removerFilmeUsuario(int IdFilme, String nomeUsuario){
         try{
             bd.conexao();
-            String sql="delete from filmesAvaliados where nomeFilme='"+nomeFilme+"' and nomeUsuario='"+nomeUsuario+"'";
+            String sql="delete from filmesAvaliados where idfilme='"+IdFilme+"' and nomeUsuario='"+nomeUsuario+"'";
             bd.getStatement().execute(sql);
             
             javax.swing.JOptionPane aviso = new javax.swing.JOptionPane();
