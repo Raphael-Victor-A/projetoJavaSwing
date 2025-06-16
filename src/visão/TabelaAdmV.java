@@ -46,7 +46,7 @@ public class TabelaAdmV extends javax.swing.JFrame {
         jScrollPane3 = new javax.swing.JScrollPane();
         jTable3 = new javax.swing.JTable();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), "Tabelas", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 12))); // NOI18N
 
@@ -233,7 +233,7 @@ public class TabelaAdmV extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton2ActionPerformed
 
-    private void jBTableFilmes(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBTableFilmes
+    private void jBTableFilmes(java.awt.event.ActionEvent evt) {                               
     try {
         listaAdmC ctrl = new listaAdmC();
         ResultSet rs = ctrl.ListarFilmesAdm();
@@ -244,7 +244,7 @@ public class TabelaAdmV extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(this, "Erro ao consultar filmes: " + e.getMessage());
     }
 }
-    //GEN-LAST:event_ConsultaPorId
+                                  
     private void preencherTabela(ResultSet rs) {
         try {
                 DefaultTableModel modelo = new DefaultTableModel(
@@ -268,9 +268,9 @@ public class TabelaAdmV extends javax.swing.JFrame {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-    }//GEN-LAST:event_jBTableFilmes
+    }                              
 
-    private void jBUsuarios(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBUsuarios
+    private void jBUsuarios(java.awt.event.ActionEvent evt) {                            
         // TODO add your handling code here:
         try {
             listaUsuarioC ctrl = new listaUsuarioC();
@@ -282,7 +282,7 @@ public class TabelaAdmV extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Erro ao consultar usuarios: " + e.getMessage());
         }
     }
-    //GEN-LAST:event_ConsultaPorId
+                                  
     private void preencherTabela2(ResultSet rsu) {
         try {
                 DefaultTableModel modelo = new DefaultTableModel(
@@ -292,7 +292,7 @@ public class TabelaAdmV extends javax.swing.JFrame {
                 while (rsu.next()) {
                     int idusuario = rsu.getInt("idusuario");
                     String nomeUsuario = rsu.getString("nomeusuario");
-                    int senha = rsu.getInt("senha");
+                    String senha = rsu.getString("senha");
 
                     modelo.addRow(new Object[]{idusuario, nomeUsuario, senha});
                 }
@@ -303,9 +303,9 @@ public class TabelaAdmV extends javax.swing.JFrame {
                 e.printStackTrace();
             }
         
-    }//GEN-LAST:event_jBUsuarios
+    }                           
 
-    private void jBAvaliacoes(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBAvaliacoes
+    private void jBAvaliacoes(java.awt.event.ActionEvent evt) {                              
         // TODO add your handling code here:
         try {
             listaAdmC ctrl = new listaAdmC();
@@ -317,7 +317,7 @@ public class TabelaAdmV extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Erro ao consultar avaliações: " + e.getMessage());
         }
     }
-    //GEN-LAST:event_ConsultaPorId
+                                  
     private void preencherTabela3(ResultSet rsa) {
         try {
                 DefaultTableModel modelo = new DefaultTableModel(
@@ -339,7 +339,7 @@ public class TabelaAdmV extends javax.swing.JFrame {
             } catch (Exception e) {
                 e.printStackTrace();
             } 
-    }//GEN-LAST:event_jBAvaliacoes
+    }                             
 
     /**
      * @param args the command line arguments

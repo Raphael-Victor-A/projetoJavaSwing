@@ -112,7 +112,7 @@ public class TelaAdmV extends javax.swing.JFrame {
 
         jBAlterar.setText("Alterar");
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), "Cadastrar/Atualizar Filmes"));
 
@@ -867,7 +867,7 @@ public class TelaAdmV extends javax.swing.JFrame {
         // TODO add your handling code here:
         TabelaAdmV tabelaAdm = new TabelaAdmV();
         tabelaAdm.setVisible(true);
-        this.dispose();
+        //this.dispose();
     }//GEN-LAST:event_MostrarTabelas
 
     private void jBRemoverFilme(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBRemoverFilme

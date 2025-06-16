@@ -147,17 +147,17 @@ public class principal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-    String usuario = campoUsuario.getText();
+    String nomeusuario = campoUsuario.getText();
     String senha = new String(campoSenha.getPassword());
 
     // Verifica se os campos estão vazios
-    if (usuario.isEmpty() || senha.isEmpty()) {
+    if (nomeusuario.isEmpty() || senha.isEmpty()) {
         JOptionPane.showMessageDialog(this, "Preencha todos os campos!");
         return;
     }
 
     // Verifica se é o admin (acesso direto sem consulta ao banco)
-    if (usuario.equals("admin") && senha.equals("12345")) {
+    if (nomeusuario.equals("admin") && senha.equals("12345")) {
         TelaAdmV telaAdmin = new TelaAdmV();
         telaAdmin.setVisible(true);
         this.dispose();
@@ -170,7 +170,7 @@ public class principal extends javax.swing.JFrame {
             bd.conexao();
             String sql = "SELECT * FROM usuario WHERE nomeUsuario = ? AND senha = ?";
             PreparedStatement stmt = bd.getConnection().prepareStatement(sql);
-            stmt.setString(1, usuario);
+            stmt.setString(1, nomeusuario);
             stmt.setString(2, senha);
 
             ResultSet rs = stmt.executeQuery();
@@ -179,7 +179,7 @@ public class principal extends javax.swing.JFrame {
                 // Usuário encontrado
                 TelaUserV telaUsuario = new TelaUserV();
                 telaUsuario.setVisible(true);
-                this.dispose();
+                //this.dispose();
             } else {
                 // Usuário não encontrado
                 int opcao = JOptionPane.showConfirmDialog(
@@ -192,7 +192,7 @@ public class principal extends javax.swing.JFrame {
                     // Abre tela de cadastro
                     CadastroLoginV telaCadastro = new CadastroLoginV();
                     telaCadastro.setVisible(true);
-                    this.dispose();
+                    //this.dispose();
                 }
             }
         } catch (SQLException ex) {
