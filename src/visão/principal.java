@@ -3,7 +3,11 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package visão;
+import controle.bancoDeDados;
 import javax.swing.JOptionPane;
+import java.sql.ResultSet;
+import java.sql.PreparedStatement;  // Para PreparedStatement
+import java.sql.SQLException;       // Para SQLException
 import modelo.sessaoUsuarioM;
 import modelo.usuarioM;
 import controle.usuarioC;
@@ -38,7 +42,7 @@ public class principal extends javax.swing.JFrame {
         campoUsuario = new javax.swing.JTextField();
         campoSenha = new javax.swing.JPasswordField();
         jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        jBNovoUsuario = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -62,8 +66,13 @@ public class principal extends javax.swing.JFrame {
             }
         });
 
-        jButton2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jButton2.setText("ESQUECI A SENHA");
+        jBNovoUsuario.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jBNovoUsuario.setText("NOVO USUÁRIO");
+        jBNovoUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBNovoUsuario(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -84,8 +93,8 @@ public class principal extends javax.swing.JFrame {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(23, 23, 23)
                         .addComponent(jButton1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 81, Short.MAX_VALUE)
-                        .addComponent(jButton2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 94, Short.MAX_VALUE)
+                        .addComponent(jBNovoUsuario)
                         .addGap(52, 52, 52))))
         );
         jPanel2Layout.setVerticalGroup(
@@ -102,7 +111,7 @@ public class principal extends javax.swing.JFrame {
                 .addGap(38, 38, 38)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
-                    .addComponent(jButton2))
+                    .addComponent(jBNovoUsuario))
                 .addContainerGap(50, Short.MAX_VALUE))
         );
 
@@ -139,27 +148,70 @@ public class principal extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
     String usuario = campoUsuario.getText();
-        String senha = new String(campoSenha.getPassword());
+    String senha = new String(campoSenha.getPassword());
 
-    if (usuario.equals("admin") && senha.equals("12345")) {
-        // Login correto como administrador
-            TelaAdmV telaAdmin = new TelaAdmV();
-            telaAdmin.setVisible(true);
-        this.dispose(); // Fecha a tela de login
-        } else if (!usuario.isEmpty() && !senha.isEmpty()) {
-        // Qualquer outro login (usuário comum)
-            TelaUserV telaUsuario = new TelaUserV(); // Substitua por sua classe correta
-            telaUsuario.setVisible(true);
-            this.dispose(); // Fecha a tela de login
-    } else {
-        // Campos vazios ou inválidos
-        JOptionPane.showMessageDialog(this, "Usuário ou senha incorretos.");
+    // Verifica se os campos estão vazios
+    if (usuario.isEmpty() || senha.isEmpty()) {
+        JOptionPane.showMessageDialog(this, "Preencha todos os campos!");
+        return;
     }
+
+    // Verifica se é o admin (acesso direto sem consulta ao banco)
+    if (usuario.equals("admin") && senha.equals("12345")) {
+        TelaAdmV telaAdmin = new TelaAdmV();
+        telaAdmin.setVisible(true);
+        this.dispose();
+        return;
+    }
+
+    // Conexão com o banco para verificar usuários comuns
+        bancoDeDados bd = new bancoDeDados();
+        try {
+            bd.conexao();
+            String sql = "SELECT * FROM usuario WHERE nomeUsuario = ? AND senha = ?";
+            PreparedStatement stmt = bd.getConnection().prepareStatement(sql);
+            stmt.setString(1, usuario);
+            stmt.setString(2, senha);
+
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                // Usuário encontrado
+                TelaUserV telaUsuario = new TelaUserV();
+                telaUsuario.setVisible(true);
+                this.dispose();
+            } else {
+                // Usuário não encontrado
+                int opcao = JOptionPane.showConfirmDialog(
+                    this, 
+                    "Usuário não cadastrado. Deseja se cadastrar agora?",
+                    "Cadastro",
+                    JOptionPane.YES_NO_OPTION);
+
+                if (opcao == JOptionPane.YES_OPTION) {
+                    // Abre tela de cadastro
+                    CadastroLoginV telaCadastro = new CadastroLoginV();
+                    telaCadastro.setVisible(true);
+                    this.dispose();
+                }
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(this, "Erro ao consultar banco de dados: " + ex.getMessage());
+        } finally {
+            bd.desconecta();
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void campoUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoUsuarioActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_campoUsuarioActionPerformed
+
+    private void jBNovoUsuario(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBNovoUsuario
+        // TODO add your handling code here:
+            CadastroLoginV telaNovoUsuario = new CadastroLoginV(); // Substitua por sua classe correta
+            telaNovoUsuario.setVisible(true);
+            this.dispose();  
+    }//GEN-LAST:event_jBNovoUsuario
 
     /**
      * @param args the command line arguments
@@ -199,8 +251,8 @@ public class principal extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPasswordField campoSenha;
     private javax.swing.JTextField campoUsuario;
+    private javax.swing.JButton jBNovoUsuario;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;

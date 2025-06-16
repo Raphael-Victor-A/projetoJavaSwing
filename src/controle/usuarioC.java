@@ -9,6 +9,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import javax.swing.JOptionPane;
 import modelo.usuarioM;
 
 /**
@@ -34,16 +35,23 @@ public class usuarioC {
      * @param obj Objeto do tipo usuarioM que contém nome de usuário e senha
      */
     public void inserirUsuario(usuarioM obj){
-    try{
-        bd.conexao();
-        String sql = "insert into usuario values('"+obj.getNomeUsuario()+"','"+obj.getSenha()+"')";
-        bd.getStatement().execute(sql);
-        
-        javax.swing.JOptionPane aviso = new javax.swing.JOptionPane();
-        aviso.showMessageDialog(null, "Usuario cadastrado");
-        bd.desconecta();
-    }catch(Exception er){
+        try {
+            bd.conexao();
+            // Método 1: Especificando as colunas (recomendado)
+            String sql = "insert into usuario (nomeUsuario, senha) values (?, ?)";
+
+            // Usando PreparedStatement para evitar SQL injection
+            PreparedStatement stmt = bd.getConnection().prepareStatement(sql);
+            stmt.setString(1, obj.getNomeUsuario());
+            stmt.setString(2, obj.getSenha());
+            stmt.executeUpdate();
+
+            JOptionPane.showMessageDialog(null, "Usuário cadastrado com sucesso!");
+        } catch (SQLException er) {
             er.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Erro ao cadastrar: " + er.getMessage());
+        } finally {
+            bd.desconecta();
     }
     }
     /**
