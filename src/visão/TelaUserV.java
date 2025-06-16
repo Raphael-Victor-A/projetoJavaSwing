@@ -4,8 +4,12 @@
  */
 package visão;
 
+import controle.listaAdmC;
 import controle.listaUsuarioC;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 import modelo.listaUsuarioM;
+import java.sql.ResultSet;
 
 /**
  *
@@ -64,6 +68,7 @@ public class TelaUserV extends javax.swing.JFrame {
         jTNome = new javax.swing.JTextField();
         jScrollPane3 = new javax.swing.JScrollPane();
         jTable3 = new javax.swing.JTable();
+        jBMostrar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -232,16 +237,16 @@ public class TelaUserV extends javax.swing.JFrame {
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(jLabel5)
                         .addGap(51, 51, 51)
-                        .addComponent(jTFilmeR))
+                        .addComponent(jTFilmeR, javax.swing.GroupLayout.DEFAULT_SIZE, 185, Short.MAX_VALUE))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(jLabel10)
                         .addGap(18, 18, 18)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(jBRemover)
-                                .addGap(0, 108, Short.MAX_VALUE))
-                            .addComponent(jTNomeUsuario))))
+                        .addComponent(jTNomeUsuario)))
                 .addContainerGap())
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(95, 95, 95)
+                .addComponent(jBRemover)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -253,7 +258,7 @@ public class TelaUserV extends javax.swing.JFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel10)
                     .addComponent(jTNomeUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(34, 34, 34)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jBRemover)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -352,6 +357,13 @@ public class TelaUserV extends javax.swing.JFrame {
         ));
         jScrollPane3.setViewportView(jTable3);
 
+        jBMostrar.setText("Mostrar Tabela");
+        jBMostrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBMostrar(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -362,8 +374,14 @@ public class TelaUserV extends javax.swing.JFrame {
                     .addComponent(jScrollPane3)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(97, 97, 97)
+                                .addComponent(jBMostrar)
+                                .addGap(0, 0, Short.MAX_VALUE)))))
                 .addContainerGap())
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
@@ -375,9 +393,12 @@ public class TelaUserV extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(17, 17, 17)
+                        .addComponent(jBMostrar)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 255, Short.MAX_VALUE)
                 .addContainerGap())
@@ -432,6 +453,43 @@ public class TelaUserV extends javax.swing.JFrame {
         
     }//GEN-LAST:event_jBRemover
 
+    private void jBMostrar(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBMostrar
+        // TODO add your handling code here:
+        try {
+        listaUsuarioC ctrl = new listaUsuarioC();
+        ResultSet rs = ctrl.ListarAvaliacaoAdm();
+        preencherTabela(rs);
+        rs.getStatement().getConnection().close();
+    } catch (Exception e) {
+        e.printStackTrace();
+        JOptionPane.showMessageDialog(this, "Erro ao consultar Avaliações: " + e.getMessage());
+    }
+}
+                                  
+    private void preencherTabela(ResultSet rs) {
+        try {
+                DefaultTableModel modelo = new DefaultTableModel(
+                    new Object[]{"IDFilme", "NomeUsuario","Nota","Comentarios"}, 0
+                );
+
+                while (rs.next()) {
+                    int idFilme = rs.getInt("idFilme");
+                    String nomeUsuario = rs.getString("nomeUsuario");            
+                    int nota = rs.getInt("nota");
+                    String comentarios = rs.getString("comentarios"); 
+                    
+
+                    modelo.addRow(new Object[]{idFilme, nomeUsuario, nota, comentarios});
+                }
+
+                jTable3.setModel(modelo);
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        
+    }//GEN-LAST:event_jBMostrar
+
     /**
      * @param args the command line arguments
      */
@@ -469,6 +527,7 @@ public class TelaUserV extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBCadastrar;
+    private javax.swing.JButton jBMostrar;
     private javax.swing.JButton jBRemover;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;

@@ -182,4 +182,16 @@ public class listaUsuarioC {
         }  
         return rsu;
     }
+    public ResultSet ListarAvaliacaoAdm(){
+    ResultSet rs = null;
+        try{
+            bd.conexao();
+            String sql = "select * from filmesAvaliados";
+            bd.getStatement().execute(sql);         
+            rs = bd.getStatement().executeQuery(sql);   
+        }catch(Exception er){
+            er.printStackTrace();
+        }  
+        return rs;
+    }
 }
